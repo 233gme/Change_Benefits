@@ -16,7 +16,7 @@ const QuizWrapper = styled.View`
 `
 
 const QuizText = styled.Text`
-  font-size: 14px;
+  font-size: 16px;
   color: #393C41;
   text-align: center;
   margin-bottom: 5px;
@@ -24,7 +24,8 @@ const QuizText = styled.Text`
 `
 
 const QuizHighlightedText = styled.Text`
-  font-size: 16px;
+  font-size: 18px;
+  font-weight: 600;
   color: #ee516e;
   padding: 2px 8px;
   text-align: center;
@@ -73,8 +74,6 @@ const Quiz = (
     internalState,
     setInternalState,
     mainQuestionsHandler,
-    mainQuestions,
-    getNewQuiz,
   }
   ) => {
   const [inputText, setInputText] = useState('');
@@ -127,6 +126,12 @@ const Quiz = (
     }
     setInputText('');
   }
+
+  const handleKeyPress = ({ nativeEvent: { key: keyValue } }) => {
+    if(keyValue === 'Enter' && showButton) {
+      setValue();
+    }
+  };
 
   return (
     <Animated.View
@@ -184,6 +189,8 @@ const Quiz = (
                           onChangeText={setInputText}
                           value={inputText}
                           placeholder="Введите текст"
+                          autoFocus={true}
+                          onKeyPress={handleKeyPress}
                         />
                       ) : (
                         <>
